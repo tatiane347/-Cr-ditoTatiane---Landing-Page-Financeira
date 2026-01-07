@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Simulação de empréstimo rápido e seguro. Taxas a partir de 1.99% ao mês. Dinheiro na conta em 24h.">
+    <meta name="author" content="Tatiane Nascimento De Souza">
+    <title>CréditoTatiane | Soluções Financeiras Inteligentes</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/money-bag-euro.png">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #003d80;
+            --secondary-color: #0056b3;
+            --accent-color: #ffc107;
+            --dark-color: #121212;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Melhoria na Navegação */
+        .navbar {
+            padding: 1rem 0;
+            transition: all 0.3s;
+            background: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Hero com Efeito Visual */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 160px 0 100px;
+            position: relative;
+        }
+
+        .hero-section::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: white;
+            clip-path: polygon(0 100%, 100% 100%, 100% 0);
+        }
+
+        /* Cards Profissionais */
+        .card-feature {
+            border: none;
+            border-radius: 20px;
+            padding: 40px 30px;
+            background: white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+        }
+
+        .card-feature:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0,61,128,0.15);
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 61, 128, 0.1);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        /* Simulador Estilizado */
+        .simulation-container {
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+        }
+
+        .form-range::-webkit-slider-thumb {
+            background: var(--primary-color);
+        }
+
+        /* Botão WhatsApp Flutuante */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: white;
+            background-color: #128c7e;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            color: black;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            color: #888;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botão WhatsApp -->
+    <a href="https://wa.me/11910526709" class="whatsapp-float" target="_blank">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="#">
+                <i class="bi bi-shield-check text-warning me-2"></i>Crédito<span class="text-warning">Tatiane</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#beneficios">Vantagens</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#como-funciona">Como funciona</a></li>
+                    <li class="nav-item px-lg-3"><a class="btn btn-warning rounded-pill fw-bold px-4" href="#simulador">Simular Agora</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="inicio" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">TAXAS REDUZIDAS 2026</span>
+                    <h1 class="display-3 fw-extrabold mb-4">Crédito rápido que respeita seu bolso.</h1>
+                    <p class="lead mb-5 text-white-50">Aprovação simplificada para negativados, autônomos e assalariados. Sem taxas antecipadas e 100% transparente.</p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
+                        <a href="#simulador" class="btn btn-warning btn-lg px-5 py-3 fw-bold rounded-pill">Começar Simulação</a>
+                        <div class="d-flex align-items-center gap-2 text-white-50 ms-lg-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <span>4.9/5 de satisfação</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-4 shadow-2xl" alt="Segurança Financeira">
+                        <div class="position-absolute top-50 start-0 translate-middle bg-white p-3 rounded-4 shadow d-none d-md-block">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-success text-white p-2 rounded-circle"><i class="bi bi-check-lg"></i></div>
+                                <div><small class="d-block text-muted">Aprovado</small><strong>R$ 15.000,00</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefícios -->
+    <section id="beneficios" class="bg-white">
+        <div class="container">
+            <div class="text-center max-w-700 mx-auto mb-5">
+                <h2 class="display-5 fw-bold mb-3">Soluções feitas para você</h2>
+                <p class="text-muted fs-5">Tecnologia e humanidade unidas para oferecer o melhor crédito.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card-feature">
+                        <div class="icon-box"><i class="bi bi-lightning-charge-fill"></i></div>
+                        <h4 class="fw-bold">Rapidez Digital</h4>
+                        <p class="text-muted">Análise de crédito em menos de 5 minutos com uso de IA avançada.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-feature">
+                        <div class="icon-box"><i class="bi bi-shield-lock-fill"></i></div>
+                        <h4 class="fw-bold">Segurança Bancária</h4>
+                        <p class="text-muted">Seus dados criptografados com o mesmo padrão dos grandes bancos.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-feature">
+                        <div class="icon-box"><i class="bi bi-graph-down-arrow"></i></div>
+                        <h4 class="fw-bold">Menor Custo Efetivo</h4>
+                        <p class="text-muted">Sem pegadinhas. Você sabe exatamente quanto vai pagar do início ao fim.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona -->
+    <section id="como-funciona" class="bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Simples como deve ser</h2>
+            </div>
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="step-number">1</div>
+                    <h5>Simule Online</h5>
+                    <p class="small text-muted">Escolha o valor e o prazo que cabem no seu mês.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-number">2</div>
+                    <h5>Envie os Dados</h5>
+                    <p class="small text-muted">Cadastro rápido e seguro através do formulário.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-number">3</div>
+                    <h5>Dinheiro na Conta</h5>
+                    <p class="small text-muted">Receba via PIX imediatamente após a assinatura digital.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulador -->
+    <section id="simulador">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-5">
+                    <h2 class="display-6 fw-bold mb-4">Personalize sua oferta</h2>
+                    <p class="mb-4">Ajuste os valores para visualizar o impacto no seu orçamento. Nossa simulação é gratuita e não altera seu score.</p>
+                    <div class="d-flex align-items-center gap-3 p-3 border rounded-4 mb-3">
+                        <i class="bi bi-info-circle-fill text-primary fs-4"></i>
+                        <small class="text-muted">Lembre-se: Use o crédito de forma consciente para realizar seus projetos.</small>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="simulation-container">
+                        <div class="mb-4">
+                            <label class="form-label d-flex justify-content-between fw-bold">
+                                <span>Valor do Empréstimo</span>
+                                <span class="text-primary" id="valLabel">R$ 5.000</span>
+                            </label>
+                            <input type="range" class="form-range" min="1000" max="50000" step="500" id="valInput" value="5000">
+                        </div>
+                        <div class="mb-5">
+                            <label class="form-label d-flex justify-content-between fw-bold">
+                                <span>Parcelamento</span>
+                                <span class="text-primary" id="monthLabel">12 meses</span>
+                            </label>
+                            <input type="range" class="form-range" min="6" max="48" step="6" id="monthInput" value="12">
+                        </div>
+                        
+                        <div class="p-4 bg-light rounded-4 text-center mb-4">
+                            <span class="text-muted small text-uppercase fw-bold">Parcela Mensal Estimada</span>
+                            <h1 class="display-4 fw-bold text-primary mb-0" id="resultLabel">R$ 525,40</h1>
+                        </div>
+                        
+                        <a href="#contato" class="btn btn-dark btn-lg w-100 py-3 fw-bold rounded-pill shadow">Solicitar Análise Grátis</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <h2 class="fw-bold text-warning mb-4">Vamos conversar?</h2>
+                    <p class="opacity-75">Se você é um recrutador ou empresa buscando talentos em tecnologia e vendas, entre em contato diretamente.</p>
+                    <hr class="border-secondary my-4">
+                    <div class="d-flex gap-3 mb-3">
+                        <i class="bi bi-envelope-at text-warning"></i>
+                        <span>tatianen25@gmail.com</span>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <i class="bi bi-geo-alt text-warning"></i>
+                        <span>São Paulo, Brasil (Remoto/Híbrido)</span>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="card p-4 border-0 rounded-4">
+                        <form id="proForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-control-lg bg-light border-0" placeholder="Nome Completo" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control form-control-lg bg-light border-0" placeholder="E-mail Corporativo" required>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control form-control-lg bg-light border-0" rows="4" placeholder="Descreva brevemente sua necessidade ou proposta de trabalho"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold">Enviar Proposta</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">© 2026 <strong>Tatiane Nascimento De Souza</strong></p>
+                    <small>Desenvolvedora Front-End & Especialista em Vendas</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="d-flex gap-3 justify-content-center justify-content-md-end">
+                        <a href="https://www.linkedin.com/in/tatiane-nascimento-68b0622bb?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="text-secondary fs-4"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://github.com/tatiane347/premium-portfolio-tatiane-souza/tree/main" class="text-secondary fs-4"><i class="bi bi-github"></i></a>
+                        <a href="https://tatiane347.github.io/premium-portfolio-tatiane-souza/" class="text-secondary fs-4"><i class="bi bi-globe"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Lógica do Simulador Profissional
+        const valInput = document.getElementById('valInput');
+        const monthInput = document.getElementById('monthInput');
+        const valLabel = document.getElementById('valLabel');
+        const monthLabel = document.getElementById('monthLabel');
+        const resultLabel = document.getElementById('resultLabel');
+
+        function updateSimulation() {
+            const val = parseFloat(valInput.value);
+            const months = parseInt(monthInput.value);
+            
+            valLabel.innerText = "R$ " + val.toLocaleString('pt-BR');
+            monthLabel.innerText = months + " meses";
+
+            // Taxa fictícia de 1.99% am (0.0199)
+            const taxa = 0.0199;
+            const parcela = (val * taxa) / (1 - Math.pow(1 + taxa, -months));
+            
+            resultLabel.innerText = "R$ " + parcela.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        valInput.addEventListener('input', updateSimulation);
+        monthInput.addEventListener('input', updateSimulation);
+
+        // Form Submission
+        document.getElementById('proForm').onsubmit = (e) => {
+            e.preventDefault();
+            alert("Sua proposta foi enviada com sucesso! Este projeto demonstra as habilidades técnicas de Tatiane Nascimento De Souza.");
+        };
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Inicializa simulação
+        updateSimulation();
+    </script>
+</body>
+</html>
